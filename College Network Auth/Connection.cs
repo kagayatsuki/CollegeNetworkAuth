@@ -27,6 +27,25 @@ namespace College_Network_Auth
             Inited = true;
         }
 
+        public Connection(string HostName, int port)
+        {
+            IPAddress[] addresses = null;
+            try
+            {
+                 addresses = Dns.GetHostAddresses(HostName);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
+            clientP = new IPEndPoint(addresses[0], port);
+            client = new Socket(clientP.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            addressBackup = addresses[0];
+            portBackup = port;
+            Inited = true;
+        }
+
         public void Set(IPAddress Address, int port)
         {
             clientP = new IPEndPoint(Address, port);

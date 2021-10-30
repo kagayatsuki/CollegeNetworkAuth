@@ -14,6 +14,7 @@ namespace College_Network_Auth
     class Loginer
     {
         String ExtraIP = "";
+        static String ActiveCheckHost = "activecheck.shsy.top";
         static String SucceedFlag = "确定注销?";
         static String SucceedFlag2 = "登录成功";
         static String GetMessage = "GET / HTTP/1.1\r\n\r\n";
@@ -81,6 +82,13 @@ namespace College_Network_Auth
                 }
                 ConnectFailedCounter = 0;
             }
+            Connection activeServer = new Connection(ActiveCheckHost, 80);
+            if (!activeServer.TryToConnect())
+                return false;
+            activeServer.Disconnect();
+            return true;
+
+            /* 旧式检测方法
             server.Send(Encoding.Default.GetBytes(GetMessage), GetMessage.Length);
             Byte[] recv_data = new Byte[4096];
             server.Recv(recv_data, 4096);       //接收GET请求的返回头
@@ -101,7 +109,8 @@ namespace College_Network_Auth
                     Console.WriteLine("没有找到注销信息");
                     return false;
                 }
-            }
+            } 
+            */
             return true;
         }
     }

@@ -12,9 +12,7 @@ namespace College_Network_Auth
     static class Program
     {
         static RegistryKey startupKey = Registry.CurrentUser;
-        /// <summary>
-        /// 应用程序的主入口点。
-        /// </summary>
+
         [STAThread]
         static void Main(string [] Args)
         {
